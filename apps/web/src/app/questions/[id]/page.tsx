@@ -116,6 +116,7 @@ export default function QuestionConfirmPage() {
         </Link>
         <nav className={styles.nav}>
           <Link href="/ingest">新增錯題</Link>
+          <Link href="/review">複習</Link>
         </nav>
       </header>
 

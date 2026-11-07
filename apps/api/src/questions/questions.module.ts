@@ -6,6 +6,7 @@ import {
   QuestionOption,
 } from '../entities';
 import { JobsModule } from '../jobs/jobs.module';
+import { ReviewsModule } from '../reviews/reviews.module';
 import { QuestionsController } from './questions.controller';
 import { QuestionsService } from './questions.service';
 
@@ -13,9 +14,11 @@ import { QuestionsService } from './questions.service';
   imports: [
     TypeOrmModule.forFeature([Question, QuestionOption, QuestionAnalysis]),
     JobsModule,
+    ReviewsModule,
   ],
   controllers: [QuestionsController],
   providers: [QuestionsService],
   exports: [QuestionsService],
 })
 export class QuestionsModule {}
+

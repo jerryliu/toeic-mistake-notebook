@@ -157,3 +157,72 @@ export async function pollJob(
   }
   throw new Error('工作逾時');
 }
+
+export type ReviewConfidence =
+  | 'forgot'
+  | 'wrong_familiar'
+  | 'correct_unsure'
+  | 'correct_confident';
+
+export type ReviewCard = {
+  prompt: {
+    id: string;
+    stem: string | null;
+    part: number | null;
+    status: string;
+    nextReviewAt: string | null;
+    imageUrl: string | null;
+    repetitionCount: number;
+    intervalDays: number;
+  };
+  options: Array<{ label: string; content: string }>;
+  reveal: {
+    correctOption: string | null;
+    originalUserOption: string | null;
+    errorType: string | null;
+    analysis: {
+      questionType: string | null;
+      correctExplanation: string | null;
+      distractorExplanations: Record<string, string> | null;
+      errorType: string | null;
+      vocabTags: string[] | null;
+      grammarTags: string[] | null;
+      similarExamples: string[] | null;
+    } | null;
+  };
+};
+
+export function getTodayReviews() {
+  return request<{ items: ReviewCard[]; count: number; asOf: string }>(
+    '/api/v1/reviews/today',
+  );
+}
+
+export function submitReview(
+  questionId: string,
+  body: {
+    recalledOption: string;
+    confidence: ReviewConfidence;
+    reasonNote?: string;
+  },
+) {
+  return request<{
+    review: {
+      id: string;
+      isCorrect: boolean;
+      confidence: ReviewConfidence;
+      intervalDays: number;
+      nextReviewAt: string;
+    };
+    question: {
+      id: string;
+      nextReviewAt: string;
+      intervalDays: number;
+      repetitionCount: number;
+    };
+  }>(`/api/v1/questions/${questionId}/reviews`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+

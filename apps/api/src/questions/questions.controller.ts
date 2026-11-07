@@ -23,6 +23,8 @@ import { existsSync, mkdirSync } from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CurrentUser, type AuthUser } from '../common/current-user.decorator';
+import { CreateReviewDto } from '../reviews/dto/create-review.dto';
+import { ReviewsService } from '../reviews/reviews.service';
 import { ConfirmQuestionDto } from './dto/confirm-question.dto';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
@@ -38,7 +40,10 @@ if (!existsSync(uploadRoot)) {
 @UseGuards(JwtAuthGuard)
 @Controller('api/v1/questions')
 export class QuestionsController {
-  constructor(private readonly questionsService: QuestionsService) {}
+  constructor(
+    private readonly questionsService: QuestionsService,
+    private readonly reviewsService: ReviewsService,
+  ) {}
 
   @Get()
   @ApiOkResponse({ description: 'List recent questions' })
@@ -116,5 +121,15 @@ export class QuestionsController {
     @Body() dto: ConfirmQuestionDto,
   ) {
     return this.questionsService.confirm(id, user.id, dto);
+  }
+
+  @Post(':id/reviews')
+  @ApiOkResponse({ description: 'Record a review and reschedule' })
+  createReview(
+    @Param('id') id: string,
+    @CurrentUser() user: AuthUser,
+    @Body() dto: CreateReviewDto,
+  ) {
+    return this.reviewsService.createReview(id, user.id, dto);
   }
 }

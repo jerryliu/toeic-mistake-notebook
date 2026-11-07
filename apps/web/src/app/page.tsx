@@ -10,7 +10,7 @@ export default function Home() {
         <div className={styles.brand}>TOEIC 錯題記憶庫</div>
         <nav className={styles.nav} aria-label="主要導覽">
           <Link href="/ingest">新增錯題</Link>
-          <span>複習</span>
+          <Link href="/review">複習</Link>
           <span>統計</span>
         </nav>
       </header>
@@ -26,16 +26,21 @@ export default function Home() {
             <Link className={styles.primary} href="/ingest">
               開始輸入錯題
             </Link>
-            <a className={styles.ghost} href={`${apiBase}/docs`} target="_blank" rel="noreferrer">
-              API 文件
-            </a>
+            <Link className={styles.ghost} href="/review">
+              今日複習
+            </Link>
           </div>
         </section>
 
         <aside className={styles.meta}>
           <div>測試帳號：test@toeic.local / test1234（前端會自動登入）</div>
           <div>API：{apiBase}</div>
-          <div>狀態：Ingest / OCR / Analyze 可用</div>
+          <div>狀態：Ingest / Analyze / Review 可用 · 統計稍後</div>
+          <div>
+            <a href={`${apiBase}/docs`} target="_blank" rel="noreferrer">
+              API 文件
+            </a>
+          </div>
         </aside>
       </main>
 

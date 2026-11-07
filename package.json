@@ -1,0 +1,12 @@
+{
+  "name": "toeic-mistake-notebook",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev:web": "pnpm --filter @toeic/web dev",
+    "dev:api": "pnpm --filter @toeic/api start:dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint"
+  }
+}

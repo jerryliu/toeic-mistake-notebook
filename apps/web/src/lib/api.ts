@@ -226,3 +226,43 @@ export function submitReview(
   });
 }
 
+export type WeaknessesResponse = {
+  range: '7d' | '30d';
+  asOf: string;
+  summaryLine: string;
+  byPart: Array<{
+    part: number;
+    questionCount: number;
+    reviewCount: number;
+    correctCount: number;
+    accuracy: number | null;
+  }>;
+  byErrorType: Array<{
+    errorType: string;
+    label: string;
+    count: number;
+    share: number;
+  }>;
+  reviews: { inRange: number; last7Days: number };
+  streak: {
+    maxRepetitionOnCard: number;
+    cardsAtStreak3Plus: number;
+    currentCorrectStreak: number;
+    bestCorrectStreakInRange: number;
+  };
+  queue: {
+    dueCount: number;
+    readyCount: number;
+    pendingDraftCount: number;
+    totalQuestions: number;
+  };
+  topWeaknesses: Array<{ errorType: string; count: number; label: string }>;
+};
+
+export function getWeaknesses(range: '7d' | '30d' = '7d') {
+  return request<WeaknessesResponse>(
+    `/api/v1/analytics/weaknesses?range=${range}`,
+  );
+}
+
+

@@ -11,7 +11,7 @@ export default function Home() {
         <nav className={styles.nav} aria-label="主要導覽">
           <Link href="/ingest">新增錯題</Link>
           <Link href="/review">複習</Link>
-          <span>統計</span>
+          <Link href="/analytics">統計</Link>
         </nav>
       </header>
 
@@ -19,15 +19,15 @@ export default function Home() {
         <section className={styles.hero}>
           <h1>用最短路徑，記住你真正會再錯的題</h1>
           <p>
-            可貼上題目或上傳截圖（Mock OCR），AI 預填解析後一鍵確認加入複習。
-            複習佇列與統計儀表板將於後續里程碑接上。
+            可貼上題目或上傳截圖（Mock OCR），AI 預填解析後一鍵確認加入複習，
+            再看「我哪裡一直錯」的弱點統計。
           </p>
           <div className={styles.actions}>
             <Link className={styles.primary} href="/ingest">
               開始輸入錯題
             </Link>
-            <Link className={styles.ghost} href="/review">
-              今日複習
+            <Link className={styles.ghost} href="/analytics">
+              弱點統計
             </Link>
           </div>
         </section>
@@ -35,7 +35,7 @@ export default function Home() {
         <aside className={styles.meta}>
           <div>測試帳號：test@toeic.local / test1234（前端會自動登入）</div>
           <div>API：{apiBase}</div>
-          <div>狀態：Ingest / Analyze / Review 可用 · 統計稍後</div>
+          <div>狀態：Ingest / Review / Analytics 可用</div>
           <div>
             <a href={`${apiBase}/docs`} target="_blank" rel="noreferrer">
               API 文件

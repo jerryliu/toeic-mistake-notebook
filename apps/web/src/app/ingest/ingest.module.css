@@ -1,0 +1,80 @@
+.panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.panel h1 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.lead {
+  margin: 0;
+  color: var(--muted);
+}
+
+.form {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.form label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.form input,
+.form textarea,
+.form select {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text);
+  border-radius: 0.45rem;
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.divider {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.upload {
+  display: grid;
+  gap: 0.4rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.upload input {
+  color: var(--text);
+}
+
+.hint {
+  color: var(--accent);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.error {
+  color: #fb7185;
+  margin: 0;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}

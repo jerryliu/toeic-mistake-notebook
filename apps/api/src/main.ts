@@ -1,10 +1,13 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { existsSync, mkdirSync } from 'fs';
+import { join } from 'path';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.enableCors({
     origin: true,
     credentials: true,
@@ -17,9 +20,15 @@ async function bootstrap() {
     }),
   );
 
+  const uploadRoot = join(process.cwd(), 'uploads');
+  if (!existsSync(uploadRoot)) {
+    mkdirSync(uploadRoot, { recursive: true });
+  }
+  app.useStaticAssets(uploadRoot, { prefix: '/uploads' });
+
   const swaggerConfig = new DocumentBuilder()
     .setTitle('TOEIC 錯題記憶庫 API')
-    .setDescription('Phase 1 MVP scaffold — OpenAPI smoke')
+    .setDescription('Phase 1 MVP — ingest / OCR / analyze')
     .setVersion('0.1.0')
     .addBearerAuth()
     .build();
